@@ -1,0 +1,31 @@
+﻿@model List<Reserva>
+@{
+    ViewData["Title"] = "Listar Reservas";
+}
+<h2>@ViewData["Title"]</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Cantidad de Pasajeros</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Destino</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reserva in Model)
+        {
+            <tr>
+                <td>@reserva.IdReserva</td>
+                <td>@reserva.CantidadPasajeros</td>
+                <td>@reserva.FechaInicio.ToShortDateString()</td>
+                <td>@reserva.FechaFin.ToShortDateString()</td>
+                <td>@reserva.IdDestinoNavigation.Nombre</td>
+                <td>
+                    <a asp-action="Eliminar" asp-route-id="@reserva.IdReserva" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

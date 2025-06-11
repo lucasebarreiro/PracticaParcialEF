@@ -25,11 +25,18 @@ public class ReservasController(IReservaService _reservaService, IDestinoService
         ViewBag.Destinos = new SelectList(destinos, "IdDestino", "Nombre");
         return View(reserva);
     }
-    public IActionResult Listar()
+    public IActionResult Listar(int? destinoId)
     {
         var destinos = _destinoService.ObtenerDestinos();
         ViewBag.Destinos = new SelectList(destinos, "IdDestino", "Nombre");
+
         var reservas = _reservaService.ObtenerReservasActivas();
+
+        if (destinoId.HasValue && destinoId.Value != 0)
+        {
+            reservas = reservas.Where(r => r.IdDestinoNavigation.IdDestino == destinoId.Value).ToList();
+        }
+
         return View(reservas);
     }
 
@@ -38,5 +45,4 @@ public class ReservasController(IReservaService _reservaService, IDestinoService
         _reservaService.ActualizarReserva(id);
         return RedirectToAction("Listar");
     }
-
 }

@@ -29,3 +29,11 @@
         }
     </tbody>
 </table>
+<form asp-action="Listar" method="get" class="form-inline mb-3">
+    <div class="form-group">
+        <label for="destinoId" class="mr-2">Filtrar por destino:</label>
+        <select id="destinoId" name="destinoId" asp-items="ViewBag.Destinos" class="form-control mr-2" onchange="this.form.submit()">
+            <option value="0">-- Todos los destinos --</option>
+        </select>
+    </div>
+</form>
